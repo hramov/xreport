@@ -35,7 +35,7 @@ func run(ctx context.Context, log *log.Logger) error {
 	defer db.Close()
 
 	// mux
-	shutdownCh := make(chan struct{}, 1)
+	shutdownCh := make(chan os.Signal, 1)
 	mux := v1.New(shutdownCh, db, log)
 
 	// server

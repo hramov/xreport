@@ -1,16 +1,20 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import axios from "axios";
 
 const emit = defineEmits(['submit'])
 
 const model = ref({})
-const drivers = [
-  { title: 'Postgres', code: 'pg' },
-  { title: 'SQL Server', code: 'sqlserver' },
-]
+
+const drivers = ref([])
 
 const loading = ref(false)
 const canCheckConnection = ref(true)
+
+const loadDrivers = async () => {
+  const response = await axios.get('http://localhost:3000/driver/')
+  drivers.value = response.data.data;
+}
 
 const checkConnection = () => {
 
@@ -23,6 +27,10 @@ const submit = () => {
 const handleReset = () => {
   model.value = {}
 }
+
+onMounted(() => {
+  loadDrivers()
+})
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-package source
+package driver
 
 import (
 	"context"
@@ -16,15 +16,10 @@ type Handler struct {
 	log        *log.Logger
 }
 
-type Source struct {
+type Driver struct {
 	Id        string    `db:"id" json:"id"`
-	DriverId  int       `db:"driver_id" json:"driver_id"`
 	Title     string    `db:"title" json:"title"`
-	Host      string    `db:"host" json:"host"`
-	Port      string    `db:"port" json:"port"`
-	Username  string    `db:"username" json:"username"`
-	Password  string    `db:"password" json:"password"`
-	Database  string    `db:"database" json:"database"`
+	Code      string    `db:"code" json:"code"`
 	CreatedAt time.Time `db:"created_at" json:"created_at"`
 }
 
@@ -35,11 +30,11 @@ func New(shutdownCh chan os.Signal, app *web.App, db *sqlx.DB, log *log.Logger) 
 		log:        log,
 	}
 
-	app.Handle("GET", "/source/", handler.list)
+	app.Handle("GET", "/driver/", handler.list)
 }
 
 func (h *Handler) list(ctx context.Context, w http.ResponseWriter, r *http.Request) (any, error) {
-	s := []Source{}
-	err := h.db.SelectContext(ctx, &s, "select * from source")
+	s := []Driver{}
+	err := h.db.SelectContext(ctx, &s, "select * from driver")
 	return s, err
 }
