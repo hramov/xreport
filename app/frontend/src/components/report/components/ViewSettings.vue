@@ -1,25 +1,57 @@
 <script setup lang="ts">
 import {ref} from "vue";
+const content = ref('')
 
-const jsondata = ref([
-  {
-    user: '1',
-    name: 'John',
-    phone: '123',
-    gender: 'M',
-    age: 20,
-    birth: '2020-01-01'
-  }
-])
+const handleReset = () => {
+
+}
+
 </script>
 
 <template>
-  <vue-excel-editor v-model="jsondata" style="color: black">
-    <vue-excel-column field="user"   label="User ID"       type="string" />
-    <vue-excel-column field="name"   label="Name"          type="string" />
-    <vue-excel-column field="phone"  label="Contact"       type="string" />
-    <vue-excel-column field="gender" label="Gender"        type="select" :options="['F','M','U']" />
-    <vue-excel-column field="age"    label="Age"           type="number" />
-    <vue-excel-column field="birth"  label="Date Of Birth" type="date" />
-  </vue-excel-editor>
+  <v-container>
+    <div class="html-wrapper">
+      <div class="html">
+        <h3 style="text-align: center">Шаблон</h3>
+        <v-textarea rows="20" style="padding: 20px" v-model="content"></v-textarea>
+      </div>
+      <div class="divider"></div>
+      <div class="preview">
+        <h3 style="text-align: center">Предпросмотр</h3>
+        <div style="padding: 20px;" v-html="content"></div>
+      </div>
+    </div>
+
+    <br/>
+    <v-btn
+        class="me-4"
+        type="submit"
+    >
+      Сохранить
+    </v-btn>
+
+    <v-btn @click="handleReset">
+      Очистить
+    </v-btn>
+  </v-container>
 </template>
+
+<style scoped>
+.html-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.html {
+  width: 50%;
+}
+
+.preview {
+  width: 50%;
+}
+
+.divider {
+  width: 1px;
+  background-color: white;
+}
+</style>

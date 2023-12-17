@@ -1,37 +1,25 @@
 <script setup lang="ts">
 import {ref} from "vue";
 
-const emit = defineEmits(['submit'])
 const model = ref({
   recipients: [],
-});
+})
 
 const handleReset = () => {
-  model.value = {
-    recipients: [],
-  };
+
 }
 
 const addRecipient = () => {
-  model.value.recipients.push('')
+
 }
 
 const onSubmit = () => {
-  model.value.recipients.filter((r) => r.length > 0)
-  emit('submit', model)
+
 }
 </script>
 
 <template>
-  <form @submit.prevent="onSubmit">
-
-    <v-select
-      v-model="model.service"
-      label="Сервис"
-      :items="['Дашборд']"
-    >
-    </v-select>
-
+  <v-form @submit.prevent="onSubmit">
     <v-text-field
         v-model="model.title"
         label="Название"
@@ -65,5 +53,6 @@ const onSubmit = () => {
     <v-btn @click="handleReset">
       Очистить
     </v-btn>
-  </form>
+  </v-form>
+
 </template>

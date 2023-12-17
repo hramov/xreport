@@ -19,6 +19,12 @@ const items = [
 
       <v-spacer></v-spacer>
 
+      <router-link to="/audit" style="text-decoration: none; color: white;">
+        <v-list-item>
+          <v-list-item-title>Аудит</v-list-item-title>
+        </v-list-item>
+      </router-link>
+
       <v-btn>Создать
         <v-menu activator="parent">
           <v-list>
@@ -32,13 +38,13 @@ const items = [
           </v-list>
         </v-menu>
       </v-btn>
+
     </v-app-bar>
 
     <v-navigation-drawer
         v-model="drawer"
         temporary
     >
-      <!--  -->
     </v-navigation-drawer>
 
     <v-main>

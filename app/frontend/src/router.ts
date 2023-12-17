@@ -7,6 +7,7 @@ const routes = [
     { path: '/create-report', component: () => import('./components/create-report/CreateReport.vue') },
     { path: '/create-data-source', component: () => import('./components/create-data-source/CreateDataSource.vue') },
     { path: '/report/:id', component: () => import('./components/report/Report.vue') },
+    { path: '/audit', component: () => import('./components/audit/Audit.vue') },
 ]
 
 const router = createRouter({

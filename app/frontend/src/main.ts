@@ -19,6 +19,4 @@ const vuetify = createVuetify({
     }
 })
 
-import VueExcelEditor from 'vue3-excel-editor'
-
-createApp(App).use(vuetify).use(router).use(VueExcelEditor).mount('#app')
+createApp(App).use(vuetify).use(router).mount('#app')

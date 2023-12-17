@@ -9,8 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@kangc/v-md-editor": "^1.7.12",
     "@mdi/font": "^7.3.67",
     "axios": "^1.6.2",
+    "highlight.js": "^11.9.0",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5",
     "vue3-excel-editor": "^1.0.21",
