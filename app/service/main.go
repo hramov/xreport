@@ -2,14 +2,15 @@ package main
 
 import (
 	"context"
-	v1 "github.com/hramov/xreport/app/service/v1"
-	"github.com/hramov/xreport/business/platform/database/postgres"
-	"github.com/pkg/errors"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
+
+	v1 "github.com/hramov/xreport/app/service/v1"
+	"github.com/hramov/xreport/business/platform/database"
+	"github.com/pkg/errors"
 )
 
 func main() {
@@ -27,7 +28,7 @@ func run(ctx context.Context, log *log.Logger) error {
 	defer log.Println("stop XReport")
 
 	// database
-	db, err := postgres.New("localhost", 5432, "postgres", "postgres", "xreport")
+	db, err := database.New(database.Postgres, "10.248.61.198", 5432, "postgres", "postgres", "xreport")
 	if err != nil {
 		return err
 	}

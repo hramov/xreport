@@ -4,12 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/dimfeld/httptreemux/v5"
-	"github.com/jmoiron/sqlx"
 	"log"
 	"net/http"
 	"os"
 	"syscall"
+
+	"github.com/dimfeld/httptreemux/v5"
+	"github.com/jmoiron/sqlx"
 )
 
 type App struct {
@@ -47,8 +48,9 @@ func (a *App) Handle(method string, path string, handler Handler, lm ...Middlewa
 				err = a.SendError(w, appErr.Unwrap(), appErr.Code)
 			} else {
 				if validateError(err) {
-					a.Shutdown()
-					return
+					a.log.Println(err)
+					// a.Shutdown()
+					// return
 				}
 				err = a.SendError(w, fmt.Errorf("internal server error"), http.StatusInternalServerError)
 			}

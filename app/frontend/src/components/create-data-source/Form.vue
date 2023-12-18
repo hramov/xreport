@@ -1,41 +1,53 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from "vue";
 import axios from "axios";
 
-const emit = defineEmits(['submit'])
+const emit = defineEmits(["submit"]);
 
-const model = ref({})
+const model = ref({});
 
-const drivers = ref([])
+const drivers = ref([]);
 
-const loading = ref(false)
-const canCheckConnection = ref(true)
+const loading = ref(false);
+const canCheckConnection = ref(true);
 
 const loadDrivers = async () => {
-  const response = await axios.get('http://localhost:3000/driver/')
+  const response = await axios.get("http://localhost:3000/driver/");
   drivers.value = response.data.data;
-}
+};
 
-const checkConnection = () => {
-
-}
+const checkConnection = async () => {
+  loading.value = true;
+  const response = await axios.post(
+    "http://localhost:3000/source/check",
+    model.value
+  );
+  loading.value = false;
+  console.log(response);
+};
 
 const submit = () => {
-  emit('submit', model)
-}
+  emit("submit", model);
+};
 
 const handleReset = () => {
-  model.value = {}
-}
+  model.value = {};
+};
 
 onMounted(() => {
-  loadDrivers()
-})
+  loadDrivers();
+});
 </script>
 
 <template>
-  <v-form style="width: 700px; margin: 0 auto;">
-    <v-select label="Драйвер *" v-model="model.driver" :items="drivers" item-title="title" item-value="code"/>
+  <v-form style="width: 700px; margin: 0 auto">
+    <v-select
+      label="Драйвер *"
+      v-model="model.driver"
+      :items="drivers"
+      item-title="title"
+      item-value="code"
+    />
 
     <v-text-field label="Название *" v-model="model.title" />
 
@@ -49,19 +61,18 @@ onMounted(() => {
 
     <v-text-field label="Название БД" v-model="model.database" />
 
-    <v-btn variant="text" :loading="loading" :disabled="!canCheckConnection" @click="checkConnection">Проверить подключение</v-btn>
-    <span style="margin-left: 20px">Успешно</span>
-    <br/>
-    <br/>
     <v-btn
-        class="me-4"
-        type="submit"
+      variant="text"
+      :loading="loading"
+      :disabled="loading"
+      @click="checkConnection"
+      >Проверить подключение</v-btn
     >
-      Сохранить
-    </v-btn>
+    <span style="margin-left: 20px">Успешно</span>
+    <br />
+    <br />
+    <v-btn class="me-4" type="submit"> Сохранить </v-btn>
 
-    <v-btn @click="handleReset">
-      Очистить
-    </v-btn>
+    <v-btn @click="handleReset"> Очистить </v-btn>
   </v-form>
 </template>
