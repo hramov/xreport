@@ -2,8 +2,9 @@ package postgres
 
 import (
 	"fmt"
+
 	"github.com/jmoiron/sqlx"
-	_ "github.com/lib/pq"
+	_ "github.com/lib/pq" // postgres driver
 	"github.com/pkg/errors"
 )
 

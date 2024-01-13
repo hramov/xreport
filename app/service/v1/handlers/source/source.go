@@ -44,13 +44,13 @@ func New(shutdownCh chan os.Signal, app *web.App, db *sqlx.DB, log *log.Logger) 
 	app.Handle("PUT", "/source/", handler.update)
 }
 
-func (h *Handler) list(ctx context.Context, w http.ResponseWriter, r *http.Request) (any, error) {
+func (h *Handler) list(ctx context.Context, _ http.ResponseWriter, _ *http.Request) (any, error) {
 	s := []Source{}
 	err := h.db.SelectContext(ctx, &s, "select * from source")
 	return s, err
 }
 
-func (h *Handler) check(ctx context.Context, w http.ResponseWriter, r *http.Request) (any, error) {
+func (h *Handler) check(_ context.Context, _ http.ResponseWriter, r *http.Request) (any, error) {
 	var s Source
 	err := web.Decode(r, &s)
 	if err != nil {

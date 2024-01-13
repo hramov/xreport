@@ -2,9 +2,10 @@ package middleware
 
 import (
 	"context"
+	"net/http"
+
 	"github.com/google/uuid"
 	"github.com/hramov/xreport/business/platform/web"
-	"net/http"
 )
 
 func ReqId() web.Middleware {
